@@ -1,0 +1,12 @@
+{
+  "name": "Homeful",
+  "private": "true",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.1.0"
+  },
+  "dependencies": {
+    "ngCordova": "^0.1.27-alpha",
+    "firebase": "^3.4.1",
+    "angularfire": "^2.0.2"
+  }
+}
