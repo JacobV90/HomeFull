@@ -40,7 +40,7 @@
           <div class="item item-divider">
             </div>
         <ion-list>
-          <ion-checkbox ng-if="emergency || user.gender === 'female'" ng-model="">Pregnant</ion-checkbox>
+          <ion-checkbox ng-if="!emergency || user.gender === 'female'">Pregnant</ion-checkbox>
           <ion-checkbox ng-if="!emergency" ng-model="filter.yellow">Sex offender</ion-checkbox>
           <ion-checkbox ng-if="!emergency" ng-model="filter.pink">History of violence</ion-checkbox>
         </ion-list>

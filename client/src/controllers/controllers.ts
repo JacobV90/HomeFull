@@ -64,35 +64,47 @@ angular.module('app.controllers', [ 'ionic', 'firebase', 'ngAnimate'])
     console.log($scope.emergency);
   };
 
-  $scope.emergency = function(){
-    $scope.alone = !$scope.alone;
-    $scope.group = !$scope.alone;
-  };
-
   $scope.toggleCategory = function(category) {
     var theone = category.label;
     switch(theone){
       case "emergency":
-          alone = !alone;
-          group = !group;
+          if(alone || group){
+            alone = false;
+            group = false;
+          }else{
+            alone = true;
+            group = true;
+          }
+
           $scope.categories[1].value = alone;
           $scope.categories[2].value = group;
-          $scope.emergency = true;
+          console.log($scope.emergency);
           break;
       case "alone":
-          group = !group;
+          if(group){
+            group = false;
+          }else{
+            group = true;
+          }
+          alone = !alone;
           $scope.categories[2].value = group;
           break;
       case "group":
-          alone = !alone;
+          if(alone){
+            alone = false;
+          }else{
+            alone = true;
+          }
           $scope.categories[1].value = alone;
           break;
     }
 
     if ($scope.isCategoryShown(category)) {
       $scope.shownCategory = null;
+      $scope.emergency = false;
     } else {
       $scope.shownCategory = category;
+      $scope.emergency = true;
     }
   };
 
