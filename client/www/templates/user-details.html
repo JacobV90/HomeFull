@@ -8,22 +8,41 @@
             <ion-item class="item cssSlideUp"
                       ng-hide="category.value"
                       ng-click="toggleCategory(category)"
-                      ng-animate
                       ng-class="{active: isCategoryShown(category)}">
               {{category.name}}
             </ion-item>
 
             <ion-item class="item-accordion"
                       ng-show="isCategoryShown(category)">
-                      Heller!
+                      <div class="list" ng-if="category.label === 'alone'">
+                        <label class="item item-input item-select">
+                          <div class="input-label">
+                            Gender
+                          </div>
+                          <select ng-model="user.gender">
+                            <option value="male">Male</option>
+                            <option value="female" selected>Female</option>
+                          </select>
+                        </label>
+                        <label class="item item-input">
+                          <span class="input-label">Age:</span>
+                          <input type="number" ng-model="user.age">
+                        </label>
+                      </div>
+                      <div class="list" ng-if="category.label === 'emergency'">
+                        <label class="item item-input">
+                          <span class="input-label">Details:</span>
+                          <input type="text" ng-model="user.comment">
+                        </label>
+                      </div>
             </ion-item>
           </div>
           <div class="item item-divider">
             </div>
         <ion-list>
-          <ion-checkbox ng-model="filter.red">Pregnant</ion-checkbox>
-          <ion-checkbox ng-model="filter.yellow">Sex offender</ion-checkbox>
-          <ion-checkbox ng-model="filter.pink">History of violence</ion-checkbox>
+          <ion-checkbox ng-if="emergency || user.gender === 'female'" ng-model="">Pregnant</ion-checkbox>
+          <ion-checkbox ng-if="!emergency" ng-model="filter.yellow">Sex offender</ion-checkbox>
+          <ion-checkbox ng-if="!emergency" ng-model="filter.pink">History of violence</ion-checkbox>
         </ion-list>
 
         <button class="button button-full button-positive">

@@ -1,6 +1,5 @@
 {
-  "name": "Homeful",
-  "private": "true",
+  "name": "homeful",
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.1.0"
   },
@@ -8,5 +7,19 @@
     "ngCordova": "^0.1.27-alpha",
     "firebase": "^3.4.1",
     "angularfire": "^2.0.2"
-  }
+  },
+  "homepage": "https://github.com/JacobV90/homefull",
+  "authors": [
+    "Jacob Veal <jacob-veal@uiowa.edu>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
 }

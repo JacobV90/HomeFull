@@ -1,5 +1,5 @@
 {
-  "name": "Homeful",
+  "name": "homeful",
   "version": "1.0.0",
   "dependencies": {
     "angular-messages": "^1.5.8",

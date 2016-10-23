@@ -2,18 +2,22 @@ angular.module('app.controllers', [ 'ionic', 'firebase', 'ngAnimate'])
 
   .controller('ShelterCtrl', function($scope, $ionicModal, $firebaseArray) {
 
-  //var shelters = Shelters.all();
-
+  var alone = false;
+  var group = false;
   var ref = firebase.database().ref().child('shelters');
   $scope.shelters = $firebaseArray(ref);
   $scope.userData = {};
-  var emergency = false;
-  var alone = false;
-  var group = false;
+  $scope.emergency = false;
+  $scope.user = {
+    age: "",
+    gender: "",
+    comment: "",
+  }
+
   $scope.categories = [
     {
       name: "Life threatening?",
-      value: emergency,
+      value: $scope.emergency,
       label: "emergency"
     },
     {
@@ -26,7 +30,7 @@ angular.module('app.controllers', [ 'ionic', 'firebase', 'ngAnimate'])
       value: group,
       label: "group"
     }
-  ]
+  ];
 
   $ionicModal.fromTemplateUrl('templates/shelter-details.html',{
     scope: $scope,
@@ -73,17 +77,14 @@ angular.module('app.controllers', [ 'ionic', 'firebase', 'ngAnimate'])
           group = !group;
           $scope.categories[1].value = alone;
           $scope.categories[2].value = group;
+          $scope.emergency = true;
           break;
       case "alone":
-          emergency = !emergency;
           group = !group;
-          $scope.categories[0].value = emergency;
           $scope.categories[2].value = group;
           break;
       case "group":
-          emergency = !emergency;
           alone = !alone;
-          $scope.categories[0].value = emergency;
           $scope.categories[1].value = alone;
           break;
     }
