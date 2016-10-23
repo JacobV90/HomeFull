@@ -23,7 +23,6 @@
     "cordova": "github:DefinitelyTyped/DefinitelyTyped/cordova/cordova.d.ts#14ab703f435375194360cdba3abab61afc879c18",
     "cordova-ionic": "github:DefinitelyTyped/DefinitelyTyped/cordova-ionic/cordova-ionic.d.ts#62eedc3121a5e28c50473d2e4a9cefbcb9c3957f",
     "core-js": "registry:dt/core-js#0.0.0+20160725163759",
-    "fbsdk": "github:DefinitelyTyped/DefinitelyTyped/fbsdk/fbsdk.d.ts#8eedd1b9f7f009f14435f73c53a88d537c546a02",
     "firebase": "registry:dt/firebase#2.4.1+20160412125105",
     "ionic": "github:DefinitelyTyped/DefinitelyTyped/ionic/ionic.d.ts#14ab703f435375194360cdba3abab61afc879c18",
     "jasmine": "registry:dt/jasmine#2.2.0+20160621224255",

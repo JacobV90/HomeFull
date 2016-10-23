@@ -1,32 +1,26 @@
 angular.module('app.controllers', [ 'ionic', 'firebase'])
 
-  .controller('ShelterCtrl', function($scope, Shelters, $ionicModal, $firebaseArray) {
+  .controller('ShelterCtrl', function($scope, $ionicModal, $firebaseArray) {
 
-    var shelters = [];
+    //var shelters = Shelters.all();
 
-    var ref = firebase.database().ref().child('shelters');
-    $scope.shelters = $firebaseArray(ref);
+  var ref = firebase.database().ref().child('shelters');
+  $scope.shelters = $firebaseArray(ref);
 
-    $scope.updateShelters = function(objects){
-      var i = 0;
-      $scope.shelters[i++] = objects;
-    }
-
-  $ionicModal.fromTemplateUrl('templates/shelter-details.html', function(modal) {
-          $scope.modalCtrl = modal;
-      }, {
-          scope: $scope,
-          animation: 'slide-in-up',//'slide-left-right', 'slide-in-up', 'slide-right-left'
-          focusFirstInput: false
+  $ionicModal.fromTemplateUrl('templates/shelter-details.html',{
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
   });
 
   $scope.openModal = function(shelter) {
     $scope.modalData = {"name": shelter.name, "address": shelter.address};
-    $scope.modalCtrl.show();
+    $scope.modal.show();
   };
 
   $scope.hideModal = function(){
-    $scope.modalCtrl.hide();
+    $scope.modal.hide();
   }
 
   // Cleanup the modal when we're done with it!

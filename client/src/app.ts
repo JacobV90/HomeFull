@@ -4,7 +4,7 @@ var app = angular.module('app', ['ionic', 'app.controllers', 'ngCordova','fireba
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-  
+
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
@@ -30,8 +30,7 @@ var app = angular.module('app', ['ionic', 'app.controllers', 'ngCordova','fireba
     url: '/home',
     views: {
       'home': {
-        templateUrl: 'templates/home.html',
-        controller: 'ShelterCtrl'
+        templateUrl: 'templates/home.html'
       }
     }
   })
