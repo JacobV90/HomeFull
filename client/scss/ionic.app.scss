@@ -53,6 +53,9 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   margin-top: 10vh;
 }
 
+.scroll {
+    height: 100%;
+}
 
 .login-form{
   width:100%;
@@ -63,6 +66,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   border: none!important;
 }
 
+#map {
+    height: 100%;
+    width: 100%;
+}
 
 .btn{
   width: 100vw;
