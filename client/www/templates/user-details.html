@@ -35,12 +35,26 @@
                           <input type="text" ng-model="user.comment">
                         </label>
                       </div>
+                      <div class="list" ng-if="category.label === 'group'">
+                        <label class="item item-input">
+                          <span class="input-label">Adult Men:</span>
+                          <input type="number" ng-model="user.men">
+                        </label>
+                        <label class="item item-input">
+                          <span class="input-label">Adult Women:</span>
+                          <input type="number" ng-model="user.women">
+                        </label>
+                        <label class="item item-input">
+                          <span class="input-label">Children:</span>
+                          <input type="number" ng-model="user.children">
+                        </label>
+                      </div>
             </ion-item>
           </div>
           <div class="item item-divider">
             </div>
         <ion-list>
-          <ion-checkbox ng-if="!emergency || user.gender === 'female'">Pregnant</ion-checkbox>
+          <ion-checkbox ng-if="user.women > 0 || user.gender === 'female'">Pregnant</ion-checkbox>
           <ion-checkbox ng-if="!emergency" ng-model="filter.yellow">Sex offender</ion-checkbox>
           <ion-checkbox ng-if="!emergency" ng-model="filter.pink">History of violence</ion-checkbox>
         </ion-list>

@@ -65,46 +65,17 @@ angular.module('app.controllers', [ 'ionic', 'firebase', 'ngAnimate'])
   };
 
   $scope.toggleCategory = function(category) {
-    var theone = category.label;
-    switch(theone){
-      case "emergency":
-          if(alone || group){
-            alone = false;
-            group = false;
-          }else{
-            alone = true;
-            group = true;
-          }
-
-          $scope.categories[1].value = alone;
-          $scope.categories[2].value = group;
-          console.log($scope.emergency);
-          break;
-      case "alone":
-          if(group){
-            group = false;
-          }else{
-            group = true;
-          }
-          alone = !alone;
-          $scope.categories[2].value = group;
-          break;
-      case "group":
-          if(alone){
-            alone = false;
-          }else{
-            alone = true;
-          }
-          $scope.categories[1].value = alone;
-          break;
-    }
 
     if ($scope.isCategoryShown(category)) {
       $scope.shownCategory = null;
-      $scope.emergency = false;
+      if(category.label === "emergency"){
+        $scope.emergency = false;
+      }
     } else {
       $scope.shownCategory = category;
-      $scope.emergency = true;
+      if(category.label === "emergency"){
+        $scope.emergency = true;
+      }
     }
   };
 
@@ -183,7 +154,7 @@ angular.module('app.controllers', [ 'ionic', 'firebase', 'ngAnimate'])
 })
 .controller('MapController', function($scope, $cordovaGeolocation, $ionicPlatform ,$ionicLoading) {
 
-    $ionicPlatform.ready(function(){
+    /*$ionicPlatform.ready(function(){
       $ionicLoading.show({
                   template: '<ion-spinner icon="bubbles"></ion-spinner><br/>Acquiring location!'
               });
@@ -205,5 +176,5 @@ angular.module('app.controllers', [ 'ionic', 'firebase', 'ngAnimate'])
       }, function(error){
         console.log("Could not get location");
       });
-    })
+    })*/
 });
