@@ -6,9 +6,14 @@
   </div>
 </ion-header-bar>
   <ion-content>
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
     <ion-list>
       <ion-item class="shelters" collection-repeat="shelter in shelters" type="item-text-wrap" ng-click="openShelter(shelter)">
-      {{shelter.name}}
+      {{shelter.name}}<br/><br/>{{calculateDistance(shelter.lat, shelter.long)}}
+      {{shelter.services.housing.occupied_beds}} / {{shelter.services.housing.max_beds}}
       </ion-item>
     </ion-list>
   </ion-content>

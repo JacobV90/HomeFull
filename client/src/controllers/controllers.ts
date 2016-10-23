@@ -1,11 +1,20 @@
 angular.module('app.controllers', [ 'ionic', 'firebase', 'ngAnimate'])
 
-  .controller('ShelterCtrl', function($scope, $ionicModal, $firebaseArray) {
+  .controller('ShelterCtrl', function($scope, $rootScope, $ionicModal, $firebaseArray, $http, $cordovaGeolocation) {
 
   var alone = false;
   var group = false;
+  var lat = null;
+  var long = null;
+  var array = [];
+
   var ref = firebase.database().ref().child('shelters');
-  $scope.shelters = $firebaseArray(ref);
+  var list = $firebaseArray(ref);
+  console.log("hello" + list);
+
+  $rootScope.lat = "";
+  $rootScope.long ="";
+  $scope.shelters = list;
   $scope.userData = {};
   $scope.emergency = false;
   $scope.user = {
@@ -83,6 +92,94 @@ angular.module('app.controllers', [ 'ionic', 'firebase', 'ngAnimate'])
     return $scope.shownCategory === category;
   };
 
+  var posOptions = {timeout: 10000, enableHighAccuracy: false};
+
+  /*$cordovaGeolocation
+    .getCurrentPosition(posOptions)
+    .then(function (position) {
+      lat  = position.coords.latitude
+      long = position.coords.longitude
+    }, function(err) {
+      // error
+    });*/
+    if (navigator.geolocation) {
+        console.log('Geolocation is supported!');
+      }
+      else {
+        console.log('Geolocation is not supported for this Browser/OS version yet.');
+      }
+
+      window.onload = function() {
+  var startPos;
+  navigator.geolocation.getCurrentPosition(function(position) {
+    startPos = position;
+    $rootScope.lat = startPos.coords.latitude;
+    $rootScope.long = startPos.coords.longitude;
+    console.log("position "+ $scope.long + $scope.lat);
+  });
+};
+
+
+
+  /*var watchOptions = {
+    timeout : 3000,
+    enableHighAccuracy: false // may cause errors if true
+  };
+
+  var watch = $cordovaGeolocation.watchPosition(watchOptions);
+  watch.then(
+    null,
+    function(err) {
+      // error
+    },
+    function(position) {
+      lat  = position.coords.latitude
+      long = position.coords.longitude
+      $scope.shelters.forEach(function(shelter){
+        $scope.shelters.distance = $scope.calculateDistance($scope.shelters.lat, $scope.shelters.long);
+      });
+  });*/
+
+  $scope.calculateDistance = function(lat2, lon2) {
+    console.log("from calculation "+ $rootScope.lat + " "+ $rootScope.long);
+
+    var R = 6371; // km
+    var dLat = toRad(lat2 - $scope.lat);
+    var dLon = toRad(lon2 - $scope.long);
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(toRad($scope.lat)) * Math.cos(toRad(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+    console.log("from calculation "+ d);
+    return Math.round(d);
+  }
+
+  function toRad(value) {
+    return value * Math.PI / 180;
+  }
+
+
+  //watch.clearWatch();
+  /*// OR
+  $cordovaGeolocation.clearWatch(watch)
+    .then(function(result) {
+      // success
+      }, function (error) {
+      // error
+    });*/
+
+    $scope.doRefresh = function() {
+    $http.get('/shelters')
+     .success(function(newItems) {
+       $scope.shelters = newItems;
+     })
+     .finally(function() {
+       // Stop the ion-refresher from spinning
+       $scope.$broadcast('scroll.refreshComplete');
+     });
+   };
+
 })
 .controller('FormCtrl', function($scope, $ionicModal){
 
@@ -97,60 +194,7 @@ angular.module('app.controllers', [ 'ionic', 'firebase', 'ngAnimate'])
 })
 .controller('GeoCtrl', function($cordovaGeolocation) {
 
-  var lat = null;
-  var long = null;
 
-  var posOptions = {timeout: 10000, enableHighAccuracy: false};
-  $cordovaGeolocation
-    .getCurrentPosition(posOptions)
-    .then(function (position) {
-      lat  = position.coords.latitude
-      long = position.coords.longitude
-    }, function(err) {
-      // error
-    });
-
-
-  var watchOptions = {
-    timeout : 3000,
-    enableHighAccuracy: false // may cause errors if true
-  };
-
-  var watch = $cordovaGeolocation.watchPosition(watchOptions);
-  watch.then(
-    null,
-    function(err) {
-      // error
-    },
-    function(position) {
-      lat  = position.coords.latitude
-      long = position.coords.longitude
-  });
-
-  function calculateDistance(lat2, lon2) {
-    var R = 6371; // km
-    var dLat = toRad(lat2 - lat);
-    var dLon = toRad(lon2 - long);
-    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(lat.toRad()) * Math.cos(lat2.toRad()) *
-            Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = R * c;
-    return d;
-  }
-  function toRad(value) {
-    return value * Math.PI / 180;
-  }
-
-
-  watch.clearWatch();
-  // OR
-  $cordovaGeolocation.clearWatch(watch)
-    .then(function(result) {
-      // success
-      }, function (error) {
-      // error
-    });
 })
 .controller('MapController', function($scope, $cordovaGeolocation, $ionicPlatform ,$ionicLoading) {
 
