@@ -1,13 +1,13 @@
-<ion-view view-title="Shelters">
-  <ion-header-bar class="bar-positive">
+<ion-view view-title="Shelters" >
+  <ion-header-bar class="bar-positive" >
   <h1 class="title">Shelters</h1>
   <div class="buttons">
-    <button class="button" ng-click="openForm()">My Info</button>
+    <button class="button" ng-click="openUser()">My Info</button>
   </div>
 </ion-header-bar>
   <ion-content>
     <ion-list>
-      <ion-item class="shelters" collection-repeat="shelter in shelters" type="item-text-wrap" ng-click="openModal(shelter)">
+      <ion-item class="shelters" collection-repeat="shelter in shelters" type="item-text-wrap" ng-click="openShelter(shelter)">
       {{shelter.name}}
       </ion-item>
     </ion-list>

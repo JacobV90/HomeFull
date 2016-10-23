@@ -26,6 +26,29 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   margin-bottom: 3px;
 }
 
+.cssSlideUp {
+    transition: .5s linear all;
+    overflow: hidden;
+}
+
+.cssSlideUp.ng-hide {
+    height:0;
+}
+
+.fade{
+    transition: 0.5s linear all;
+    opacity: 1;
+}
+
+.fade.ng-hide{
+    opacity: 0;
+}
+
+.ng-hide-add, .ng-hide-remove {
+    /* ensure visibility during the transition */
+    display: block !important; /* yes, important */
+}
+
 .form-container{
   margin-top: 10vh;
 }
